@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: ${GITHUB_URL}
+          uri: ${GIT_URL}
           username: ${GIT_USERNAME}
           password: ${GIT_PASSWORD}
           search-paths:
