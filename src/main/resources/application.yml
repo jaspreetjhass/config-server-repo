@@ -8,8 +8,7 @@ spring:
           uri: ${GIT_URL}
           username: ${GIT_USERNAME}
           password: ${GIT_PASSWORD}
-          search-paths:
-          - ${SEARCH_PATH}
+          search-paths: ${SEARCH_PATH}
 server:
   port: ${CONFIG_SERVER_PORT}   
 
