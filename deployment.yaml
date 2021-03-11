@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: config-server-pod
+      labels:
+        name: config-server
+        tier: frontend
+    spec:
+      containers:
+        - name: config-server
+          image: jaspreetjhass91/config-server
+          env:
+            - name: CONFIG_SERVER_PORT
+              value: 9090
+            - name: GIT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: GIT_URL
+            - name: SEARCH_PATH
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: SEARCH_PATH
+            - name: GIT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: GIT_USERNAME
+            - name: GIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: GIT_PASSWORD
+          ports:
+            - containerPort: 9090            
+  selector:
+    matchLabels:
+      tier: frontend
